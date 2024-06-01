@@ -168,7 +168,7 @@ app.post('/unsubscribe', async (req, res) => {
     console.log(NUM_EXT + subscriberId);
 
     // Make a POST request to unsubscribe the user
-    const response = await axios.post(BASE_URL + '/subscription/getStatus', {
+    const response = await axios.post(BASE_URL + '/subscription/send', {
       applicationId: APP_ID,
       password: APP_PASS,
       subscriberId: NUM_EXT + subscriberId,
@@ -193,7 +193,7 @@ app.post('/unsubscribe', async (req, res) => {
         subscriptionStatus: response.data.subscriptionStatus
       });
     } else {
-      throw new Error('Failed to check subscription status');
+      throw new Error('Failed to unsubscribe user');
     }
   } catch (error) {
     res.status(400).send(error.message);
@@ -204,5 +204,5 @@ app.post('/unsubscribe', async (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log("Server is running on http://localhost:${port}");
+  console.log(`Server is running on http://localhost:${port}`);
 });
